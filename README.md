@@ -49,9 +49,10 @@ index=windows sourcetype="WinEventLog:Security" EventCode=4625
 | stats count by Source_Network_Address, Target_User_Name
 | sort - count
 ```
-
+---
 
 ### Loglama Odağı (Kritik Event ID'ler):
+
 
 
 4625 (Audit Failure): Başarısız Oturum Açma denemelerini (Brute Force) takip etmek için kullanıldı.
@@ -59,16 +60,12 @@ index=windows sourcetype="WinEventLog:Security" EventCode=4625
 4624 (Audit Success): Brute Force denemesi başarılı olsaydı, bu ID'yi arayarak yetkisiz başarılı girişi tespit edecektik.
 
 ## 3. Analiz Sonuçları
+
 Kısa süre içerisinde tek bir kaynak IP adresinden (Kali Makinesi) yüzlerce başarısız giriş denemesi tespit edildi.
 
-Saldırının hangi kullanıcı adlarına yönelik yapıldığı raporlandı.
+Saldırının hangi kullanıcı adlarına yönelik yapıldığı raporlandı [detaylı log görünümü](images/4625k.png).
 
-Korelasyon sorguları sayesinde;
-
-1. Kısa süre içerisinde tek bir kaynak IP adresinden (Kali Makinesi) yüzlerce başarısız giriş denemesi tespit edildi.
-2. Saldırının hangi kullanıcı adlarına yönelik yapıldığı raporlandı [detaylı log görünümü](images/4625k.png).
-
-Bu analizler, Windows Event Viewer'daki [başarısız giriş (Event 4625) loglarıyla](images/eventvwr.png) ve Kali Linux terminalindeki [başarılı brute force çıktısıyla](images/kali_hydra.png) eşleştirilerek doğrulanmıştır.
+Bu analizler, Windows Event Viewer'daki [başarısız giriş (Event 4625) loglarıyla](images/eventvwr.png) ve Kali Linux terminalindeki [başarılı brute force çıktısıyla](images/hydra.png) eşleştirilerek doğrulanmıştır.
 
 ## 🌟 Gelecekteki Geliştirmeler (Next Steps)
 
@@ -77,9 +74,11 @@ Bu analizler, Windows Event Viewer'daki [başarısız giriş (Event 4625) loglar
 
 ## 📸 Ekran Görüntüleri
 
+---
 
 ### Splunk ile Anomali Tespiti: 
 Grafik, saldırı anında (Mon Dec 8, 2025) tek bir kaynak IP adresinden gelen başarısız oturum açma denemelerinin sayısının normalin çok üzerine çıktığını göstermektedir. Bu ani artış (spike), saldırının otomatik olarak tespit edildiğinin görsel kanıtıdır.
+
 
 
 ![Splunk Timechart'ta Event ID 4625 Spike Tespiti](images/splunkchart.png)
