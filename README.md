@@ -50,7 +50,9 @@ index=windows sourcetype="WinEventLog:Security" EventCode=4625
 | sort - count
 ```
 
+
 ### Loglama Odağı (Kritik Event ID'ler):
+
 
 4625 (Audit Failure): Başarısız Oturum Açma denemelerini (Brute Force) takip etmek için kullanıldı.
 
@@ -75,22 +77,12 @@ Bu analizler, Windows Event Viewer'daki [başarısız giriş (Event 4625) loglar
 
 ## 📸 Ekran Görüntüleri
 
+
 ### Splunk ile Anomali Tespiti: 
 Grafik, saldırı anında (Mon Dec 8, 2025) tek bir kaynak IP adresinden gelen başarısız oturum açma denemelerinin sayısının normalin çok üzerine çıktığını göstermektedir. Bu ani artış (spike), saldırının otomatik olarak tespit edildiğinin görsel kanıtıdır.
+
 
 ![Splunk Timechart'ta Event ID 4625 Spike Tespiti](images/splunkchart.png)
 
 
 ![Active Directory Kullanıcıları ve Bilgisayarları Konsolu](images/ad_users.png)
-
-
-![Windows Olay Görüntüleyicisi Güvenlik Logları (Event 4625)](images/eventvwr.png)
-
-
-![Splunk Event ID 4625](images/4625.png)
-
-
-![Splunk Event ID 4625 detailed](images/4625k.png)
-
-
-![Kali Linux Hydra Brute Force Komut Çıktısı](images/hydra.png)
