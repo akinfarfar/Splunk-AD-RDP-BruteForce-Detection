@@ -50,7 +50,7 @@ index=windows sourcetype="WinEventLog:Security" EventCode=4625
 | sort - count
 ```
 
-## Loglama Odağı (Kritik Event ID'ler):
+### Loglama Odağı (Kritik Event ID'ler):
 
 4625 (Audit Failure): Başarısız Oturum Açma denemelerini (Brute Force) takip etmek için kullanıldı.
 
@@ -61,14 +61,21 @@ Kısa süre içerisinde tek bir kaynak IP adresinden (Kali Makinesi) yüzlerce b
 
 Saldırının hangi kullanıcı adlarına yönelik yapıldığı raporlandı.
 
+Korelasyon sorguları sayesinde;
+
+1. Kısa süre içerisinde tek bir kaynak IP adresinden (Kali Makinesi) yüzlerce başarısız giriş denemesi tespit edildi.
+2. Saldırının hangi kullanıcı adlarına yönelik yapıldığı raporlandı [detaylı log görünümü](images/4625k.png).
+
+Bu analizler, Windows Event Viewer'daki [başarısız giriş (Event 4625) loglarıyla](images/eventvwr.png) ve Kali Linux terminalindeki [başarılı brute force çıktısıyla](images/kali_hydra.png) eşleştirilerek doğrulanmıştır.
+
 ## 🌟 Gelecekteki Geliştirmeler (Next Steps)
 
-1.  **Korelasyon Kuralı Geliştirme:** Splunk Enterprise Security (ES) veya basit bir Alarm kuralı yazarak, 5 saniye içinde aynı kaynaktan (Source_Network_Address) gelen 10'dan fazla 4625 olayını otomatik olarak uyarı (alert) şeklinde tetiklemek.
+1.  **Korelasyon Kuralı Geliştirme:** Splunk Enterprise Security (ES) veya basit bir Alarm kuralı yazarak, 5 saniye içinde aynı kaynaktan (192.168.10.250) gelen 10'dan fazla 4625 olayını otomatik olarak uyarı (alert) şeklinde tetiklemek.
 2.  **Otomatik Engelleme (Active Response):** Saldırgan IP adresini tespit ettikten sonra, bu adresi Windows Güvenlik Duvarı'nda (Firewall) otomatik olarak engelleme (fail2ban benzeri) mekanizması entegre etmek.
 
 ## 📸 Ekran Görüntüleri
 
-## Splunk ile Anomali Tespiti: 
+### Splunk ile Anomali Tespiti: 
 Grafik, saldırı anında (Mon Dec 8, 2025) tek bir kaynak IP adresinden gelen başarısız oturum açma denemelerinin sayısının normalin çok üzerine çıktığını göstermektedir. Bu ani artış (spike), saldırının otomatik olarak tespit edildiğinin görsel kanıtıdır.
 
 ![Splunk Timechart'ta Event ID 4625 Spike Tespiti](images/splunkchart.png)
