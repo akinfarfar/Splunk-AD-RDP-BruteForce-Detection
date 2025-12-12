@@ -32,7 +32,7 @@ done
 
 ```
 
-<img width="1665" height="855" alt="saldırı1" src="https://github.com/user-attachments/assets/f955edb2-ca54-490f-8d74-4fd09078b150" />
+![Kali Linux Hydra xfreerdp Brute Force Komut Çıktısı](images/xfreerdp.png)
 
 
 ## 2. Tespit Aşaması (Blue Team)
@@ -71,20 +71,19 @@ Saldırının hangi kullanıcı adlarına yönelik yapıldığı raporlandı.
 ## Splunk ile Anomali Tespiti: 
 Grafik, saldırı anında (Mon Dec 8, 2025) tek bir kaynak IP adresinden gelen başarısız oturum açma denemelerinin sayısının normalin çok üzerine çıktığını göstermektedir. Bu ani artış (spike), saldırının otomatik olarak tespit edildiğinin görsel kanıtıdır.
 
-<img width="1475" height="885" alt="image" src="https://github.com/user-attachments/assets/da97cd22-268e-44b0-96d2-442aa23a3b89" />
+![Splunk Timechart'ta Event ID 4625 Spike Tespiti](images/splunkchart.png)
 
 
-<img width="1188" height="530" alt="ad users" src="https://github.com/user-attachments/assets/5ff2c0e3-7f85-4d62-a9ea-407663586973" />
+![Active Directory Kullanıcıları ve Bilgisayarları Konsolu](images/ad_users.png)
 
 
-<img width="786" height="817" alt="eventvwr" src="https://github.com/user-attachments/assets/1d93e6d4-8c05-4207-9fc0-f9eb3fa72570" />
+![Windows Olay Görüntüleyicisi Güvenlik Logları (Event 4625)](images/eventvwr.png)
 
 
-<img width="1075" height="842" alt="4625" src="https://github.com/user-attachments/assets/02eeb0a9-c595-4741-b7dd-e623b8baf93d" />
+![Splunk Event ID 4625](images/4625.png)
 
 
-<img width="1064" height="841" alt="4625k" src="https://github.com/user-attachments/assets/d94341c8-e84e-431d-b43e-41b322aa6bf1" />
+![Splunk Event ID 4625 detailed](images/4625k.png)
 
 
-<img width="1455" height="694" alt="saldırı" src="https://github.com/user-attachments/assets/b45e4b37-2e05-44c8-8a81-f924737ee133" />
-
+![Kali Linux Hydra Brute Force Komut Çıktısı](images/hydra.png)
