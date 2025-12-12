@@ -10,8 +10,8 @@ Gerçek dünya senaryolarına uygun olarak; bir saldırganın Active Directory o
 | Bileşen | Teknoloji / Araç | Açıklama |
 | :--- | :--- | :--- |
 | **SIEM** | Splunk Enterprise | Log toplama, indeksleme ve görselleştirme. |
-| **Saldırgan** | Kali Linux (xfreerdp) | Brute force saldırısını gerçekleştiren makine. |
-| **Hedef** | Windows 10 / Server (AD Üyesi) | RDP servisi açık, saldırıya uğrayan makine. |
+| **Saldırgan** | Kali Linux (xfreerdp & Bash Scripting) | Brute force saldırısını gerçekleştiren makine. |
+| **Hedef** | Hedef: Windows 10/Server (Domain Member) | RDP servisi açık, saldırıya uğrayan makine. |
 | **Log Agent** | Splunk Universal Forwarder | Windows loglarını Splunk'a iletir. |
 
 ## 🚀 Uygulama Adımları
@@ -40,6 +40,8 @@ Splunk arayüzünde Windows Security Logları incelendi. Özellikle EventCode=46
 
 Saldırı trafiğini izlemek için öncelikle RDP başarısız girişlerine karşılık gelen Windows Event ID 4625'e odaklanıldı. Normalde dakikada tek tük görülen bu logların, saldırı anında yüzlerce kat artışı, tehdit göstergesidir.
 
+Korelasyon Mantığı: Saldırıyı tespit etmek için kritik mantık, kısa bir zaman diliminde (örneğin 5 dakika) aynı kaynak IP adresinden gelen yüksek miktardaki ardışık 4625 olayını ilişkilendirmektir. Bu sorgu, bu korelasyonu gerçekleştirir.
+
 Kullanılan SPL (Splunk Processing Language) Sorgusu:
 
 ```
@@ -47,6 +49,12 @@ index=windows sourcetype="WinEventLog:Security" EventCode=4625
 | stats count by Source_Network_Address, Target_User_Name
 | sort - count
 ```
+
+## Loglama Odağı (Kritik Event ID'ler):
+
+4625 (Audit Failure): Başarısız Oturum Açma denemelerini (Brute Force) takip etmek için kullanıldı.
+
+4624 (Audit Success): Brute Force denemesi başarılı olsaydı, bu ID'yi arayarak yetkisiz başarılı girişi tespit edecektik.
 
 ## 3. Analiz Sonuçları
 Kısa süre içerisinde tek bir kaynak IP adresinden (Kali Makinesi) yüzlerce başarısız giriş denemesi tespit edildi.
@@ -60,15 +68,16 @@ Saldırının hangi kullanıcı adlarına yönelik yapıldığı raporlandı.
 
 ## 📸 Ekran Görüntüleri
 
-<img width="1188" height="530" alt="ad users" src="https://github.com/user-attachments/assets/5ff2c0e3-7f85-4d62-a9ea-407663586973" />
-
-
-<img width="786" height="817" alt="eventvwr" src="https://github.com/user-attachments/assets/1d93e6d4-8c05-4207-9fc0-f9eb3fa72570" />
-
 ## Splunk ile Anomali Tespiti: 
 Grafik, saldırı anında (Mon Dec 8, 2025) tek bir kaynak IP adresinden gelen başarısız oturum açma denemelerinin sayısının normalin çok üzerine çıktığını göstermektedir. Bu ani artış (spike), saldırının otomatik olarak tespit edildiğinin görsel kanıtıdır.
 
 <img width="1475" height="885" alt="image" src="https://github.com/user-attachments/assets/da97cd22-268e-44b0-96d2-442aa23a3b89" />
+
+
+<img width="1188" height="530" alt="ad users" src="https://github.com/user-attachments/assets/5ff2c0e3-7f85-4d62-a9ea-407663586973" />
+
+
+<img width="786" height="817" alt="eventvwr" src="https://github.com/user-attachments/assets/1d93e6d4-8c05-4207-9fc0-f9eb3fa72570" />
 
 
 <img width="1075" height="842" alt="4625" src="https://github.com/user-attachments/assets/02eeb0a9-c595-4741-b7dd-e623b8baf93d" />
