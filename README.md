@@ -2,10 +2,10 @@
 
 Bu proje, sanal bir Active Directory ortamında RDP Brute Force saldırısının simüle edilmesi ve Splunk SIEM aracı kullanılarak tespit edilmesini kapsamaktadır.
 
-## 🎯 Proje Amacı
+## Proje Amacı
 Gerçek dünya senaryolarına uygun olarak; bir saldırganın Active Directory ortamına sızma girişimini analiz etmek ve bu girişimi log yönetimi (SIEM) ile nasıl görünür hale getirebileceğimizi deneyimlemek.
 
-## 🛠️ Kullanılan Teknolojiler ve Mimari
+## Kullanılan Teknolojiler ve Mimari
 
 | Bileşen | Teknoloji / Araç | Açıklama |
 | :--- | :--- | :--- |
@@ -14,7 +14,7 @@ Gerçek dünya senaryolarına uygun olarak; bir saldırganın Active Directory o
 | **Hedef** | Hedef: Windows 10/Server (Domain Member) | RDP servisi açık, saldırıya uğrayan makine. |
 | **Log Agent** | Splunk Universal Forwarder | Windows loglarını Splunk'a iletir. |
 
-## 🚀 Uygulama Adımları
+## Uygulama Adımları
 
 ### 1. Saldırı Aşaması (Red Team)
 Kali Linux üzerinden `xfreerdp` aracı kullanılarak hedef IP adresine (Örn: 192.168.10.100) saldırı başlatıldı.
@@ -67,12 +67,12 @@ Saldırının hangi kullanıcı adlarına yönelik yapıldığı raporlandı [de
 
 Bu analizler, Windows Event Viewer'daki [başarısız giriş (Event 4625) loglarıyla](images/eventvwr.png) ve Kali Linux terminalindeki [başarılı brute force çıktısıyla](images/hydra.png) eşleştirilerek doğrulanmıştır.
 
-## 🌟 Gelecekteki Geliştirmeler (Next Steps)
+## Gelecekteki Geliştirmeler (Next Steps)
 
 1.  **Korelasyon Kuralı Geliştirme:** Splunk Enterprise Security (ES) veya basit bir Alarm kuralı yazarak, 5 saniye içinde aynı kaynaktan (192.168.10.250) gelen 10'dan fazla 4625 olayını otomatik olarak uyarı (alert) şeklinde tetiklemek.
 2.  **Otomatik Engelleme (Active Response):** Saldırgan IP adresini tespit ettikten sonra, bu adresi Windows Güvenlik Duvarı'nda (Firewall) otomatik olarak engelleme (fail2ban benzeri) mekanizması entegre etmek.
 
-## 📸 Ekran Görüntüleri
+## Ekran Görüntüleri
 
 ---
 
